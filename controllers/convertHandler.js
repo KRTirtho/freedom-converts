@@ -41,6 +41,9 @@ class ConvertHandler {
     }
   };
   convert(initNum, initUnit) {
+    if(initNum<0){
+      return "invalid number"
+    }
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
