@@ -1,7 +1,7 @@
 {
-	"name": "fcc-imperial-metric-converter-boilerplate",
-	"version": "1.0.0",
-	"description": "Metric / Imperial Unit Converter",
+	"name": "freedom-converts",
+	"version": "99.0.0",
+	"description": "Fullstack Metric / Imperial Unit Converter application",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
