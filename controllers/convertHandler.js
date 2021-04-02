@@ -1,6 +1,12 @@
+const validUnits = ["km", "mi", "gal", "l", "kg", "lbs"];
+
 class ConvertHandler {
   getUnit(input) {
-    return input.replace(/\d+|\/|\+|-|\*|\./g, "");
+    const unit = input.replace(/\d+|\/|\+|-|\*|\./gi, "").toLowerCase()
+    if (!validUnits.includes(unit)) {
+      return "invalid unit";
+    }
+    return unit === "l" ? "L" : unit;;
   };
 
   getReturnUnit(initUnit) {
@@ -41,13 +47,16 @@ class ConvertHandler {
     }
   };
   convert(initNum, initUnit) {
-    if(initNum<0){
+    const returnUnit = this.getReturnUnit(initUnit);
+    if (initNum < 0 || initNum === "invalid number") {
+      if (returnUnit === "invalid unit") {
+        return "invalid number and unit"
+      }
       return "invalid number"
     }
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
-    const returnUnit = this.getReturnUnit(initUnit);
     let returnNum = initNum;
 
     switch (initUnit) {
@@ -83,7 +92,17 @@ class ConvertHandler {
   };
 
   getNum(input) {
-    return eval(input.replace(/[a-z]/ig, "") || 1)
+    const num = input.replace(/[a-z]/ig, "");
+    if (!num) {
+      return 1;
+    }
+    if (num.includes("/")) {
+      if (num.match(/\//g).length > 1) {
+        return "invalid number";
+      }
+      return parseFloat(num.split("/").reduce((a, b) => a / b));
+    }
+    return parseFloat(num);
   };
 }
 
